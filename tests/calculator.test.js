@@ -15,3 +15,13 @@ test('multiplies two hexadecimal numbers', () => {
 test('divides two hexadecimal numbers', () => {
   expect(divide('A', '2')).toBe('5');
 });
+
+// DIVISION EDGE CASES
+
+test('division should not allow decimals', () => {
+  expect(divide('5', '2')).toBe('2');
+});
+
+test('division by zero should throw error', () => {
+  expect(() => divide('A', '0')).toThrow();
+});
