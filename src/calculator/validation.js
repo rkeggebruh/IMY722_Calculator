@@ -21,6 +21,6 @@ function validateOutput(output) {
   if (output.startsWith('-') || output.includes('.')) return false;
   return /^[0-9A-Fa-f]+$/.test(output);
 
-
+}
 
 module.exports = { validateInput, validateOutput };
