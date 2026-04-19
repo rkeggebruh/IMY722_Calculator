@@ -15,3 +15,28 @@ test('multiplies two hexadecimal numbers', () => {
 test('divides two hexadecimal numbers', () => {
   expect(divide('A', '2')).toBe('5');
 });
+
+
+// Tests for the validation integration.
+test('invalid input values are rejected by the add function', () => {
+  expect(() => add('ZZ', '1')).toThrow('Your input is invalid');
+});
+
+
+test('invalid input values are rejected by the subtract function', () => {
+  expect(() => subtract('GG', '1')).toThrow('Your input is invalid');
+});
+
+
+test('invalid input values are rejected by the multiply function', () => {
+  expect(() => multiply('1', 'ZZZ')).toThrow('Your input is invalid');
+});
+
+test('invalid input values are rejected by the divide function', () => {
+  expect(() => divide('1', 'GG')).toThrow('Your input is invalid');
+});
+
+
+test('dividing by zero throws an error', () => {
+  expect(() => divide('A', '0')).toThrow();
+});

@@ -1,25 +1,40 @@
+const { validateInput, validateOutput } = require('./validation');
+
 function add(a, b) {
-  return (parseInt(a, 16) + parseInt(b, 16))
+   if(!validateInput(a) || !validateInput(b)) throw new Error('Your input is invalid');
+  const results = (parseInt(a, 16) + parseInt(b, 16))
     .toString(16)
     .toUpperCase();
+   if(!validateOutput(results)) throw new Error('Your output is invalid');
+  return results;
 }
 
 function subtract(a, b) {
-  return (parseInt(a, 16) - parseInt(b, 16))
+   if(!validateInput(a) || !validateInput(b)) throw new Error('Your input is invalid');
+  const results = (parseInt(a, 16) - parseInt(b, 16))
     .toString(16)
     .toUpperCase();
+     if(!validateOutput(results)) throw new Error('Your output is invalid');
+  return results;
 }
 
 function multiply(a, b) {
-  return (parseInt(a, 16) * parseInt(b, 16))
+   if(!validateInput(a) || !validateInput(b)) throw new Error('Your input is invalid');
+ const results = (parseInt(a, 16) * parseInt(b, 16))
     .toString(16)
     .toUpperCase();
+     if(!validateOutput(results)) throw new Error('Your output is invalid');
+  return results;
 }
 
 function divide(a, b) {
-  return Math.floor(parseInt(a, 16) / parseInt(b, 16))
+   if(!validateInput(a) || !validateInput(b)) throw new Error('Your input is invalid');
+   if(parseInt(b, 16) === 0) throw new Error('You are cannot divide by 0');
+  const results = Math.floor(parseInt(a, 16) / parseInt(b, 16))
     .toString(16)
     .toUpperCase();
+     if(!validateOutput(results)) throw new Error('Your output is invalid');
+  return results;
 }
 
 module.exports = { add, subtract, multiply, divide };

@@ -1,31 +1,59 @@
-//Validations that need to be tested on input values.
-const { validateInput } = require('../src/calculator/validation');
+const { validateInput, validateOutput } = require('../src/calculator/validation');
+
+//Testing the input values.
 test('valid hex input passes', () => {
   expect(validateInput("1A")).toBe(true);
 });
-test('rejects non-hexadecimal characters', () => {
+
+
+test('single digit input should also pass', () => {
+  expect(validateInput("F")).toBe(true);
+}); //Up to two hexadecimal input characters should be valid. 
+
+
+test('rejects non-hex characters', () => {
   expect(validateInput("1G")).toBe(false);
-});
-test('rejects more than 2 digits', () => {
+  expect(validateInput("ZZ")).toBe(false);
+}); //This test checks to ensure that non-hexadecimal character will get rejected
+
+test('input longer than 2 digits gets rejected', () => {
   expect(validateInput("ABC")).toBe(false);
-});
-test('rejects empty input', () => {
+});// FR 1.3  and 1.4 states that the system should reject any hexadecimal digits that are longer than 2 digits.
+//This test checks to ensure that the hexadecimal only have up to 2 digits. Anything beyond that comes back as false.
+
+test('empty input should fail', () => {
   expect(validateInput("")).toBe(false);
+}); //Empty inputs will not be accepted.
+
+test('null and undefined should not break anything', () => {
+  expect(validateInput(null)).toBe(false);
+  expect(validateInput(undefined)).toBe(false);
 });
 
 
-//Validations that need to be tested on output values.
-const { validateOutput } = require('../src/calculator/validation');
 
-test('valid output passes', () => {
+// Testing the output values.
+test('valid 4 digit hex output passes', () => {
   expect(validateOutput("1A2F")).toBe(true);
-});
-test('rejects output longer than 4 digits', () => {
+}); //A valid output should have a maximum of 4 digits
+
+test('output longer than 4 digits fails', () => {
   expect(validateOutput("ABCDE")).toBe(false);
-});
-test('rejects negative output', () => {
+}); //An output with more than 4 digits will be failed.
+
+
+test('negative output not allowed', () => {
   expect(validateOutput("-1A")).toBe(false);
-});
-test('rejects decimal output', () => {
+}); //Output values with negative numbers will not pass.
+
+
+
+test('no decimal output', () => {
   expect(validateOutput("1A.2")).toBe(false);
+}); // The output cannot be in the form of a decimal number.
+
+
+test('null and undefined should not break anything', () => {
+  expect(validateOutput(null)).toBe(false);
+  expect(validateOutput(undefined)).toBe(false);
 });
