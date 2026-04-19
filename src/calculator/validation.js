@@ -20,7 +20,7 @@ function validateOutput(output) {
   if (output.length === 0 || output.length > 4) return false;
   if (output.startsWith('-') || output.includes('.')) return false;
   return /^[0-9A-Fa-f]+$/.test(output);
-}
+
 
 
 module.exports = { validateInput, validateOutput };
