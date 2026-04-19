@@ -37,6 +37,12 @@ test('invalid input values are rejected by the divide function', () => {
 });
 
 
+
+// DIVISION EDGE CASES
+test('division should not allow decimals', () => {
+  expect(divide('5', '2')).toBe('2');
+});
+
 test('dividing by zero throws an error', () => {
   expect(() => divide('A', '0')).toThrow();
 });

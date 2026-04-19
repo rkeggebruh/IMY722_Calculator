@@ -29,12 +29,12 @@ function multiply(a, b) {
 
 function divide(a, b) {
   if(!validateInput(a) || !validateInput(b)) throw new Error('Your input is invalid');
-  if(parseInt(b, 16) === 0) throw new Error('You cannot divide by 0');
+  if(parseInt(b, 16) === 0) throw new Error('Division by zero');
   const results = Math.floor(parseInt(a, 16) / parseInt(b, 16))
-    .toString(16)
-    .toUpperCase();
+    .toString(16).toUpperCase();
   if(!validateOutput(results)) throw new Error('Your output is invalid');
   return results;
 }
+
 
 module.exports = { add, subtract, multiply, divide };
