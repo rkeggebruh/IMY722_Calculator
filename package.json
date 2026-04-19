@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/rkeggebruh/IMY722_Calculator/issues"
   },
-  "homepage": "https://github.com/rkeggebruh/IMY722_Calculator#readme"
+  "homepage": "https://github.com/rkeggebruh/IMY722_Calculator#readme",
+  "devDependencies": {
+    "jest": "^30.3.0"
+  }
 }
