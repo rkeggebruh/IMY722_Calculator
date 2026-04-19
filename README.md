@@ -48,3 +48,12 @@ A simple calculator application built with JavaScript, including unit tests and 
 ```bash
 git clone <your-repo-url>
 cd <your-repo-name>
+
+
+# npm init -y
+# npm install --save-dev jest
+# "scripts": {
+#   "test": "jest"
+# }
+
+# npm test

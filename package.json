@@ -1,0 +1,24 @@
+{
+  "name": "imy722_calculator",
+  "version": "1.0.0",
+  "description": "Create Folders",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rkeggebruh/IMY722_Calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rkeggebruh/IMY722_Calculator/issues"
+  },
+  "homepage": "https://github.com/rkeggebruh/IMY722_Calculator#readme"
+}
