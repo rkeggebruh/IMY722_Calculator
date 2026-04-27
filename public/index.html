@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hex Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>Hex Calculator</h2>
+
+    <input type="text" id="inputA" placeholder="Enter Hex A (e.g. A)">
+    <input type="text" id="inputB" placeholder="Enter Hex B (e.g. 5)">
+
+    <div class="buttons">
+      <button onclick="handleOperation('add')">+</button>
+      <button onclick="handleOperation('subtract')">−</button>
+      <button onclick="handleOperation('multiply')">×</button>
+      <button onclick="handleOperation('divide')">÷</button>
+    </div>
+
+    <div id="result">Result: </div>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
