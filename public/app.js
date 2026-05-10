@@ -101,5 +101,11 @@ if (typeof module === 'undefined') {
   inputB.addEventListener("click", () => { activeInput = inputB; });
 }
  else {
-  module.exports = { handleOperation, add, subtract, multiply, divide, validateInput, validateOutput };
+  module.exports = { handleOperation,
+     add, 
+     subtract,
+     multiply, 
+     divide,
+     validateInput, 
+     validateOutput, };
 }
