@@ -83,17 +83,7 @@ function divide(a, b) {
 
 let activeInput = null;
 
-const inputA = document.getElementById("inputA");
-const inputB = document.getElementById("inputB");
 
-// detect selected input
-inputA.addEventListener("click", () => {
-  activeInput = inputA;
-});
-
-inputB.addEventListener("click", () => {
-  activeInput = inputB;
-});
 
 // add value from calculator buttons
 function appendValue(value) {
@@ -181,13 +171,19 @@ function handleOperation(operation) {
 
 }
 
-if (typeof module !== 'undefined')
-  module.exports = {
-    handleOperation,
-    add,
-    subtract,
-    multiply,
-    divide,
+// only run browser specific code in the browser, not in Node.js
+if (typeof module === 'undefined') {
+  const inputA = document.getElementById("inputA");
+  const inputB = document.getElementById("inputB");
+
+  inputA.addEventListener("click", () => { activeInput = inputA; });
+  inputB.addEventListener("click", () => { activeInput = inputB; });
+} else {
+  module.exports = { handleOperation, 
+    add, 
+    subtract, 
+    multiply, 
+    divide, 
     validateInput,
-    validateOutput
-  };
+     validateOutput };
+};
