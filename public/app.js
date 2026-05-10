@@ -170,20 +170,12 @@ function handleOperation(operation) {
   }
 
 }
-
-// only run browser specific code in the browser, not in Node.js
 if (typeof module === 'undefined') {
   const inputA = document.getElementById("inputA");
   const inputB = document.getElementById("inputB");
-
+  
   inputA.addEventListener("click", () => { activeInput = inputA; });
   inputB.addEventListener("click", () => { activeInput = inputB; });
 } else {
-  module.exports = { handleOperation, 
-    add, 
-    subtract, 
-    multiply, 
-    divide, 
-    validateInput,
-     validateOutput };
-};
+  module.exports = { handleOperation, add, subtract, multiply, divide, validateInput, validateOutput };
+}
