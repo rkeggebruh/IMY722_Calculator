@@ -1,177 +1,177 @@
 const fs = require('fs');
 const path = require('path');
+const {handleOperation} = require('../public/app.js');
 
-//Reading and wrapping the app.js so that its functions can be extracted.
-const app = fs.readFileSync(path.resolve(__dirname, '../public/app.js'), 'utf8');
+const html = fs.readFileSync(path.resolve(__dirname, '../public/index.html'),'utf8');
+function settingUpDOM(){ document.documentElement.innerHTML=html;}
 
-
-// Readimh the HTML in the public folder.
-const html = fs.readFileSync(path.resolve(__dirname, '../public/index.html'), 'utf8');
-
-function setupDOM() {
-  document.documentElement.innerHTML = html;
-}
-
-// Wrapping the code in a function that returns all the required functions.
-const moduleFactory = new Function(
-  'document',
-  `${app}; return { handleOperation, validateInput, validateOutput, add, subtract, multiply, divide };`
-);
+beforeEach(() =>{settingUpDOM();});
 
 
+//Testing for the existence of basic GUI elements of the hex calx.
+test('Input field A exists', () => {expect(document.getElementById('inputA')).not.toBeNull();});
+ 
+test('Input B field exists', () => {expect(document.getElementById('inputB')).not.toBeNull();});
 
-// Getting the functions, passing jsdom's document so they can manipulate the DOM
-let handleOperation;
-beforeEach(() => {
-  setupDOM();
-  const fns = moduleFactory(document);
-  handleOperation = fns.handleOperation;
-});
+test('Result display exists', () => {expect(document.getElementById('result')).not.toBeNull();});
+test('Error display exists', () => {expect(document.getElementById('error')).not.toBeNull();});
 
-// Testing if the basic gui elements exists.
-describe('GUI elements exist', () => {
-  test('Input A field exists', () => {
-    expect(document.getElementById('inputA')).not.toBeNull();
+
+//Testing to ensure that the 4 operations buttons exist.
+test('All 4 operations buttons exist', () => {const buttons = document.querySelectorAll('.buttons button');expect(buttons.length).toBe(4);
   });
 
-  
-  test('Input B field exists', () => {
-    expect(document.getElementById('inputB')).not.toBeNull();
+
+//Testing to ensure buttons display the correct symbol
+  test('Add button displays an addition symbol', () => {const buttons = document.querySelectorAll('.buttons button');
+    expect(buttons[0].textContent).toBe('+');
   });
 
-  test('Result display exists.', () => {
-    expect(document.getElementById('result')).not.toBeNull();
-  });
-  
-
-  test('Error display exists.', () => {
-    expect(document.getElementById('error')).not.toBeNull();
+  test('Subract button displays a minus symbol', () => { const buttons = document.querySelectorAll('.buttons button');
+    expect(buttons[1].textContent).toBe('−');
   });
 
-  test('Four operation buttons exist.', () => {
-    const operationButtons = document.querySelectorAll('.buttons button');
-    expect(operationButtons.length).toBe(4);
+
+  test('Multiply button display a multiplication symbol', () => {const buttons = document.querySelectorAll('.buttons button');
+    expect(buttons[2].textContent).toBe('×');
   });
-});
+
+  test('Divive button displays a division symbol', () => {const buttons = document.querySelectorAll('.buttons button');
+    expect(buttons[3].textContent).toBe('÷');
+  });
 
 
 
-// Testings the correct output displas.
-describe('Correct output is displayed.', () => {
-  test('Addition result is displayed correctly', () => {
+//Testing to ensure that the correct results are displayed
+  test('Addition resulsts are displayed correctly', () => {
     document.getElementById('inputA').value = 'A';
     document.getElementById('inputB').value = '1';
-    handleOperation('add');
-    expect(document.getElementById('result').textContent).toBe('Result: B');
+    handleOperation('add');expect(document.getElementById('result').textContent).toBe('Result: B');
   });
 
 
-  test('Subtraction result is displayed correctly.', () => {
+  test('Subtraction results are displayed correctly', () => {
     document.getElementById('inputA').value = 'A';
     document.getElementById('inputB').value = '1';
     handleOperation('subtract');
     expect(document.getElementById('result').textContent).toBe('Result: 9');
   });
 
-
-  test('Multiplication result is displayed correctly', () => {
+  test('Multiplication results are displayed correctly', () => {
     document.getElementById('inputA').value = 'A';
     document.getElementById('inputB').value = '2';
     handleOperation('multiply');
     expect(document.getElementById('result').textContent).toBe('Result: 14');
   });
 
-
-
-  test('Division result is displayed correctly.', () => {
+  test('Division results are displayed correctly', () => {
     document.getElementById('inputA').value = 'A';
     document.getElementById('inputB').value = '2';
     handleOperation('divide');
     expect(document.getElementById('result').textContent).toBe('Result: 5');
   });
+
+
+
+//Testing the edge cases and invalid input tests
+test('Input is empty show an error', () => {
+  document.getElementById('inputA').value = '';
+  document.getElementById('inputB').value ='';
+  handleOperation('add');
+  expect(document.getElementById('error').textContent).toBe('Your input is invalid');
 });
 
 
-
-// Testing the edge cases and invalid inputs.
-describe('Edge cases and invalid input handling.', () => {
-  test('Invalid hexadecimal inputs re invalid.', () => {
-    document.getElementById('inputA').value = 'ZZ';
-    document.getElementById('inputB').value = '1';
-    handleOperation('add');
-    expect(document.getElementById('error').textContent).toBe('Your input is invalid');
-  });
+test('Input is not a hexadecimal value show error', () =>{
+  document.getElementById('inputA').value='ZZ';
+  document.getElementById('inputB').value='1';
+  handleOperation('add');
+  expect(document.getElementById('error').textContent).toBe('Your input is invalid');
+});
 
 
-
-  test('Inputs longer than 2 digits are not accepted.', () => {
-    document.getElementById('inputA').value = 'ABC';
-    document.getElementById('inputB').value = '1';
-    handleOperation('add');
-    expect(document.getElementById('error').textContent).toBe('Your input is invalid');
-  });
+test('Input is longer than 2 digits, show an error', () =>{
+  document.getElementById('inputA').value="ABC";
+  document.getElementById('inputB').value="1";
+  handleOperation('add');
+  expect(document.getElementById('error').textContent).toBe('Your input is invalid')});
 
 
-
-  test('Division by zero is invalid.', () => {
+  test('Dividing by zero shows an error', () => {
     document.getElementById('inputA').value = 'A';
     document.getElementById('inputB').value = '0';
     handleOperation('divide');
-    expect(document.getElementById('error').textContent).toBe('Division by zero');
-  });
+    expect(document.getElementById('error').textContent).toBe('Division by zero');});
 
 
-  test('Result resets to "Result:" when an error occurs.', () => {
+  test('Results resets to "Result" when an error occurs', () => {
     document.getElementById('inputA').value = 'ZZ';
     document.getElementById('inputB').value = '1';
     handleOperation('add');
     expect(document.getElementById('result').textContent).toBe('Result:');
   });
 
-
-
-  test('Error message when a valid operation follows an invalid one.', () => {
+  test('Error message clears when a valid operation comes after an invalid operation', () => {
     document.getElementById('inputA').value = 'ZZ';
-    document.getElementById('inputB').value = '1';
+    document.getElementById('inputB').value ='1';
     handleOperation('add');
-    document.getElementById('inputA').value = 'A';
-    document.getElementById('inputB').value = '1';
+    document.getElementById('inputA').value = 'B';
+    document.getElementById('inputB').value ='5';
+
     handleOperation('add');
+    expect(document.getElementById('result').textContent).toBe('Result: 10'); });
 
-    expect(document.getElementById('error').textContent).toBe('');
-  });
-
-
-
-  test('Max valid input (FF + FF) produces a valid result.', () => {
+  test('Max valid input for addition produces a valid result', () => {
     document.getElementById('inputA').value = 'FF';
     document.getElementById('inputB').value = 'FF';
     handleOperation('add');
-    expect(document.getElementById('result').textContent).toBe('Result: 1FE');
+  expect(document.getElementById('result').textContent).toBe('Result: 1FE');});
+
+  test('Subtraction that provide a negative value should show an error', () =>{
+    document.getElementById('inputA').value='1';
+    document.getElementById('inputB').value="A";
+    handleOperation('subtract');
+    expect(document.getElementById('error').textContent).toBe('Your output is invalid');
   });
-});
+  
 
-
-
-// Testing the interaction between the backend logic and the GUI.
-describe('GUI correctly connects to backend logic.', () => {
-  test('Result updates each time an operation is performed.', () => {
-    document.getElementById('inputA').value = '1';
-    document.getElementById('inputB').value = '1';
+  
+  //Testing the interaction between the GUI and the backend logic
+  test('Result updates every time when an operation is performed', () =>{
+    document.getElementById('inputA').value='1';
+    document.getElementById('inputB').value="1";
     handleOperation('add');
     expect(document.getElementById('result').textContent).toBe('Result: 2');
-    document.getElementById('inputA').value = 'F';
-    document.getElementById('inputB').value = 'F';
+
+    document.getElementById('inputA').value ='F';
+    document.getElementById('inputB').value='F';
     handleOperation('multiply');
     expect(document.getElementById('result').textContent).toBe('Result: E1');
   });
 
 
 
-  test('Division floors the resuls so no decimal values are shown.', () => {
+  test('Divisions does not show decimal results but instead floors the results', () => {
     document.getElementById('inputA').value = '5';
     document.getElementById('inputB').value = '2';
-    handleOperation('divide');
+    handleOperation('divide'); 
     expect(document.getElementById('result').textContent).toBe('Result: 2');
   });
-});
+
+  test('Hexadecimal inputs with single digits are handled correctly', () => {
+    document.getElementById('inputA').value = 'F';
+    document.getElementById('inputB').value = '1';
+    handleOperation('add');
+    expect(document.getElementById('result').textContent).toBe('Result: 10');
+  });
+
+  test('Hexadecimal inputs with two digits are handled correctly', () => {
+    document.getElementById('inputA').value = '1A';
+    document.getElementById('inputB').value = '2B';
+    handleOperation('add');
+    expect(document.getElementById('result').textContent).toBe('Result: 45');
+  });
+
+
+
+

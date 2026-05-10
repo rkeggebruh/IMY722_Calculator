@@ -92,3 +92,5 @@ function handleOperation(operation) {
     errorDiv.textContent = err.message;
   }
 }
+
+if (typeof module !== 'undefined') module.exports = { handleOperation, add, subtract, multiply, divide, validateInput, validateOutput };

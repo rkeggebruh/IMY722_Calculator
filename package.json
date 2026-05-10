@@ -9,12 +9,9 @@
   "scripts": {
     "test": "jest"
   },
-
-   "jest": {
-    "testEnvironment": "jsdom",
-    "collectCoverage": true
-   },
-
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rkeggebruh/IMY722_Calculator.git"
