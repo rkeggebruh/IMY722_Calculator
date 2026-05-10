@@ -93,4 +93,4 @@ function handleOperation(operation) {
   }
 }
 
-if (typeof module !== 'undefined') module.exports = { handleOperation, add, subtract, multiply, divide, validateInput, validateOutput };
+if (typeof module!== 'undefined') module.exports ={handleOperation, add, subtract, multiply, divide, validateInput, validateOutput};
