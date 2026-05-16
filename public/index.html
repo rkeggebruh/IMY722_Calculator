@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hex Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="calculator">
+    <h2>Hex Calculator</h2>
+
+    <input type="text" id="inputA" placeholder="Enter Hex A (e.g. A)">
+    <input type="text" id="inputB" placeholder="Enter Hex B (e.g. 5)">
+
+    <div class="buttons">
+
+      <div class="numbers">
+        <button onclick="appendValue('0')">0</button>
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button onclick="appendValue('7')">7</button>
+
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button onclick="appendValue('A')">A</button>
+        <button onclick="appendValue('B')">B</button>
+
+        <button onclick="appendValue('C')">C</button>
+        <button onclick="appendValue('D')">D</button>
+        <button onclick="appendValue('E')">E</button>
+        <button onclick="appendValue('F')">F</button>
+      </div>
+
+      <div class="ops">
+        <button onclick="handleOperation('add')">+</button>
+        <button onclick="handleOperation('subtract')">−</button>
+        <button onclick="handleOperation('multiply')">×</button>
+        <button onclick="handleOperation('divide')">÷</button>
+      </div>
+
+      <button onclick="deleteLast()">⌫</button>
+      <button onclick="clearInputs()">C</button>
+
+    </div>
+
+    <div id="result">Result: </div>
+    <div id="error" class="error"></div>
+
+
+  </div>
+  <script src="app.js"></script>
+
+</body>
+
+</html>
